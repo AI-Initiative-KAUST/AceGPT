@@ -83,8 +83,15 @@ class Agent:
     def decode(self, token_ids_list: List[List[int]]):
         return self.tokenizer.batch_decode(token_ids_list, skip_special_tokens=True) 
 
+   
     def encode_sequences(self, sequences: List[str], response_with: str='') -> List[List[int]]:
+        
         assert isinstance(sequences, list) and isinstance(sequences[0], str)
+
+        # Due to the model's maximum input length limitation of 2048, we need to ensure that the character count of the input text <= 2048.
+        max_sequence_length = 2048
+        sequences = [sentence[:max_sequence_length] if len(sentence) > max_sequence_length else sentence for sentence in sequences]
+
 
         special_encoding = get_special_encoding()
         encoding_fn = special_encoding.get(self.model_id, special_encoding.get(self.model_name, None))
@@ -98,6 +105,7 @@ class Agent:
                 {'input_ids': encoding_fn(self.system_prompt.format(question=seq) + response_with, tokenizer=self.tokenizer)}
                 for seq in sequences
             ]
+        
     
     @torch.inference_mode(mode=True)
     def generate(
@@ -167,8 +175,9 @@ class Agent:
         assert isinstance(query_list, list) and isinstance(query_list[0], str)
 
         query_list = [self.system_prompt.format(question=query) for query in query_list]
-        input_ids = self.tokenizer(query_list, padding=True, truncation=True, return_tensors="pt").input_ids.to(self.device)
+        input_ids = self.tokenizer(query_list,padding=True, truncation=True, return_tensors="pt").input_ids.to(self.device)
         n_seq = input_ids.shape[-1]
+        
 
         output_ids = self.accelerator.unwrap_model(self.model).generate(input_ids=input_ids, 
                                          generation_config=self.gconfig

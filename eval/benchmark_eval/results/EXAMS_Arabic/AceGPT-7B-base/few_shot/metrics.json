@@ -1,0 +1,23 @@
+{
+    "Islamic Studies": {
+        "Accuracy": 0.1643835616438356
+    },
+    "Science": {
+        "Accuracy": 0.1391304347826087
+    },
+    "Social": {
+        "Accuracy": 0.17647058823529413
+    },
+    "Biology": {
+        "Accuracy": 0.14285714285714285
+    },
+    "Physics": {
+        "Accuracy": 0.14285714285714285
+    },
+    "average": {
+        "Accuracy": 0.15313977407520482
+    },
+    "overall": {
+        "Accuracy": 0.16201117318435754
+    }
+}
