@@ -88,10 +88,10 @@ class Agent:
         
         assert isinstance(sequences, list) and isinstance(sequences[0], str)
 
-        # Due to the model's maximum input length limitation of 2048, we need to ensure that the character count of the input text <= 2048.
-        max_sequence_length = 2048
-        sequences = [sentence[:max_sequence_length] if len(sentence) > max_sequence_length else sentence for sentence in sequences]
-
+        # Due to the model's maximum input length limitation of 2048, we need to skip the character count of the input text > 2048.
+        max_sequence_length = 2048 
+        padding_token = "<PAD>"  # Choose an appropriate padding token
+        sequences = [sentence if len(sentence) <= max_sequence_length else [padding_token] for sentence in sequences]
 
         special_encoding = get_special_encoding()
         encoding_fn = special_encoding.get(self.model_id, special_encoding.get(self.model_name, None))
