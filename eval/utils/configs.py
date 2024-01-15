@@ -4,7 +4,7 @@ from tqdm import tqdm
 from transformers import GenerationConfig, AutoConfig, AutoModelForCausalLM, AutoTokenizer, AutoModel
 from omegaconf import OmegaConf, DictConfig
 from typing import Dict, Tuple, Sequence, List, Union
-from transformers import PreTrainedModel, PreTrainedTokenizerFast, PreTrainedTokenizer, BloomTokenizerFast
+from transformers import PreTrainedModel, PreTrainedTokenizerFast, PreTrainedTokenizer, BloomTokenizerFast, GPTNeoXTokenizerFast
 import os
 import torch
 import json
