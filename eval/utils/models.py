@@ -92,8 +92,6 @@ class Agent:
         max_sequence_length = 2048 
         padding_token = "<PAD>"  # Choose an appropriate padding token
         sequences = [sentence if len(sentence) <= max_sequence_length else [padding_token] for sentence in sequences]
-
-
         special_encoding = get_special_encoding()
         encoding_fn = special_encoding.get(self.model_id, special_encoding.get(self.model_name, None))
         if encoding_fn is None:
