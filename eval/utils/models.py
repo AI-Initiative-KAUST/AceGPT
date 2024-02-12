@@ -21,6 +21,7 @@ from utils.configs import load_gconfig, load_model_and_tokenizer, load_system_pr
 def get_special_encoding():  # lookup the specified method to load model and tokenizer. it can be indexed by either model_id (prior) or model_name
     return {
         'acegpt': encoding_acegpt,
+        'aiiinit': encoding_acegpt
     }
 
 

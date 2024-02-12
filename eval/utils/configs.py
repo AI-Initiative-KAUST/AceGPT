@@ -16,6 +16,7 @@ def get_special_loading():  # lookup the specified method to load model and toke
     return {
         'llama': load_llama,
         'acegpt': load_acegpt,
+        'aiinit': load_acegpt,
     }
 
 

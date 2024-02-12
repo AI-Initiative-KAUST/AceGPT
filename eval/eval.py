@@ -1,7 +1,7 @@
 from accelerate import Accelerator
 import argparse
-from utils import Agent
-from benchmark_eval import *
+from utils.configs import Agent
+from benchmark_eval.evaluation import MMLUArabicEvaluation
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -16,12 +16,9 @@ if __name__ == '__main__':
     accelerator = Accelerator()
     agent = Agent.from_model_id(args.model_id, generation_type=args.generation_type, accelerator=accelerator)
     
-    eval_class = benchmark2class[args.benchmark_name]
-    Eval = eval_class(agent=agent,
+    Eval = MMLUArabicEvaluation(agent=agent,
                       batch_size=args.batch_size,
                       setting=args.setting,
                       n_shot=args.n_shot,
                       accelerator=accelerator)
     Eval.evaluate()
-
-
